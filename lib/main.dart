@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'pages.dart';
+import 'page_reveal.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,9 +25,19 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         body: Stack(
       children: <Widget>[
-        Page(
-          viewModel: pages[2],
-          percentVisible: 0.75,
+        PageReveal(
+          revealPercent: 1.0,
+          child: Page(
+            viewModel: pages[0],
+            percentVisible: 1.0,
+          ),
+        ),
+        PageReveal(
+          revealPercent: 0.9,
+          child: Page(
+            viewModel: pages[1],
+            percentVisible: 1.0,
+          ),
         )
       ],
     ));
