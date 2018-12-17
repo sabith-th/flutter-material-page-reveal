@@ -12,12 +12,27 @@ class PageIndicator extends StatelessWidget {
     List<PageBubble> bubbles = [];
     for (var i = 0; i < viewModel.pages.length; i++) {
       final page = viewModel.pages[i];
+
+      var percentActive;
+      if (i == viewModel.activeIndex) {
+        percentActive = 1.0 - viewModel.slidePercent;
+      } else if (i == viewModel.activeIndex - 1 &&
+          viewModel.slideDirection == SlideDirection.leftToRight) {
+        percentActive = viewModel.slidePercent;
+      } else if (i == viewModel.activeIndex + 1 &&
+          viewModel.slideDirection == SlideDirection.rightToLeft) {
+        percentActive = viewModel.slidePercent;
+      } else {
+        percentActive = 0.0;
+      }
+
+      bool isHollow = i > viewModel.activeIndex ||
+          (i == viewModel.activeIndex &&
+              viewModel.slideDirection == SlideDirection.leftToRight);
+
       bubbles.add(PageBubble(
           viewModel: PageBubbleViewModel(
-              page.iconAssetPath,
-              page.color,
-              i > viewModel.activeIndex,
-              i == viewModel.activeIndex ? 1.0 : 0.0)));
+              page.iconAssetPath, page.color, isHollow, percentActive)));
     }
 
     return Column(
@@ -70,10 +85,15 @@ class PageBubble extends StatelessWidget {
         height: lerpDouble(20.0, 45.0, viewModel.activePercent),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: viewModel.isHollow ? Colors.transparent : Color(0x88FFFFFF),
+          color: viewModel.isHollow
+              ? Color(0x88FFFFFF)
+                  .withAlpha((0x88 * viewModel.activePercent).round())
+              : Color(0x88FFFFFF),
           border: Border.all(
-              color:
-                  viewModel.isHollow ? Color(0x88FFFFFF) : Colors.transparent,
+              color: viewModel.isHollow
+                  ? Color(0x88FFFFFF)
+                  : Color(0x88FFFFFF).withAlpha(
+                      (0x88 * (1.0 - viewModel.activePercent)).round()),
               width: 3.0),
         ),
         child: Opacity(
