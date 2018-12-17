@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'pages.dart';
-import 'page_reveal.dart';
-import 'page_indicator.dart';
+import 'package:material_page_reveal/pages.dart';
+import 'package:material_page_reveal/page_reveal.dart';
+import 'package:material_page_reveal/page_indicator.dart';
 
 void main() => runApp(MyApp());
 
@@ -40,7 +40,9 @@ class _MyHomePageState extends State<MyHomePage> {
             percentVisible: 1.0,
           ),
         ),
-        PageIndicator()
+        PageIndicator(
+          viewModel: PageIndicatorViewModel(pages, 1, SlideDirection.none, 0.0),
+        )
       ],
     ));
   }
