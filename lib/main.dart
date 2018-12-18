@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         PageIndicator(
-          viewModel: PageIndicatorViewModel(pages, 1, SlideDirection.rightToLeft, 1.0),
+          viewModel: PageIndicatorViewModel(pages, 1, SlideDirection.leftToRight, 1.0),
         )
       ],
     ));
