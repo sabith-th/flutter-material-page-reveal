@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:material_page_reveal/pages.dart';
-import 'package:material_page_reveal/page_reveal.dart';
+import 'package:material_page_reveal/page_dragger.dart';
 import 'package:material_page_reveal/page_indicator.dart';
+import 'package:material_page_reveal/page_reveal.dart';
+import 'package:material_page_reveal/pages.dart';
 
 void main() => runApp(MyApp());
 
@@ -41,8 +42,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         PageIndicator(
-          viewModel: PageIndicatorViewModel(pages, 1, SlideDirection.leftToRight, 1.0),
-        )
+          viewModel:
+              PageIndicatorViewModel(pages, 1, SlideDirection.leftToRight, 1.0),
+        ),
+        PageDragger(),
       ],
     ));
   }
